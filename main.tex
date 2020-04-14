@@ -1,0 +1,62 @@
+\documentclass[11pt]{article}
+\usepackage[margin = 0.75in]{geometry}
+\usepackage{amsmath, amssymb, amsthm, amsfonts}
+\usepackage[none]{hyphenat}
+\usepackage{graphicx}
+\graphicspath{{images/}{../images}}
+\usepackage{float}
+\usepackage{fancyhdr}
+\usepackage[nottoc, notlot, notlof]{tocbibind}
+\usepackage[big]{titlesec}
+
+\pagestyle{fancy}
+\fancyhead{}
+\fancyfoot{}
+\fancyhead[R]{\textsl{Coding Theory}}
+\renewcommand{\sectionmark}[1]{\markboth{#1}{}}
+% \fancyhead[C]{\textsl{ Plan of Action }}
+\fancyhead[L]{\nouppercase{\leftmark}}
+\fancyfoot[R]{\thepage}
+\renewcommand{\footrulewidth}{0pt}
+
+
+\usepackage{subfiles}
+
+\begin{document}
+
+\begin{titlepage}
+\begin{center}
+
+\vspace{1cm}
+\Large{\textsf{ Summer of Science, 2020 }} \\
+\vspace{1.5mm}
+\large{\textsf{ MnP Club, IIT Bombay }}
+\vfill
+\line(1,0){400} \\[2mm]
+\Huge{\textsc{ Coding Theory }}\\[3mm]
+\Large{\textbf{- Mid-summer Report -}}\\[1mm]
+\line(1,0){400} \\
+\vfill
+\textsf{Abhinav Gupta} \footnote{ Mentored by \textsf{Shourya Pandey} }\\
+\textsf{\today} \\
+
+\end{center}
+\end{titlepage}
+
+\tableofcontents
+\thispagestyle{empty}
+\newpage
+
+\setcounter{page}{1}
+
+\section*{Notation\markboth{Notation}{}}
+\addcontentsline{toc}{section}{\numberline{}Notation}
+
+\subfile{sections/notation}
+
+\newpage
+
+\section{Introduction}
+
+
+\end{document}
