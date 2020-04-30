@@ -2,3 +2,7 @@
 *.synctex.gz
 *.log
 *.toc
+*.bbl
+*.blg
+Books/
+

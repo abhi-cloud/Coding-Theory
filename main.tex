@@ -1,20 +1,52 @@
 \documentclass[11pt]{article}
-\usepackage[margin = 0.75in]{geometry}
-\usepackage{amsmath, amssymb, amsthm, amsfonts}
+\usepackage{mathrsfs, amsmath, amssymb, amsthm, amsfonts}
+\usepackage[inline]{enumitem}
 \usepackage[none]{hyphenat}
 \usepackage{graphicx}
 \graphicspath{{images/}{../images}}
 \usepackage{float}
 \usepackage{fancyhdr}
-\usepackage[nottoc, notlot, notlof]{tocbibind}
-\usepackage[big]{titlesec}
+%\usepackage[nottoc, notlot, notlof]{tocbibind}
+\usepackage{tikz}
+
+\usepackage{geometry}
+\geometry{
+	a4paper,
+	total={170mm,257mm},
+	left=20mm,
+	top=20mm,
+}
+
+\usepackage{titlesec}
+\titleformat{\section}[block]
+  {\normalfont\scshape\Large}{\S\thesection}{0.25cm}{\Large}
+
+\theoremstyle{definition}
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{defn}[thm]{Definition}
+\newtheorem{cor}{Corollary}[thm]
+\newtheorem{lem}[thm]{Lemma}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\renewcommand{\baselinestretch}{0.85}
+\renewcommand\qedsymbol{$\square$}
+\newcommand{\fl}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+\newcommand{\dis}[2]{d(\textbf{#1},\textbf{#2})}
+\newcommand{\code}[1]{\textbf{#1}}
+
+\setlength\parindent{0pt}
+%\setlength\parskip{0.5em plus 0.1em minus 0.2em}
+\let\emptyset\varnothing
 
 \pagestyle{fancy}
 \fancyhead{}
 \fancyfoot{}
 \fancyhead[R]{\textsl{Coding Theory}}
 \renewcommand{\sectionmark}[1]{\markboth{#1}{}}
-% \fancyhead[C]{\textsl{ Plan of Action }}
+
 \fancyhead[L]{\nouppercase{\leftmark}}
 \fancyfoot[R]{\thepage}
 \renewcommand{\footrulewidth}{0pt}
@@ -24,24 +56,7 @@
 
 \begin{document}
 
-\begin{titlepage}
-\begin{center}
-
-\vspace{1cm}
-\Large{\textsf{ Summer of Science, 2020 }} \\
-\vspace{1.5mm}
-\large{\textsf{ MnP Club, IIT Bombay }}
-\vfill
-\line(1,0){400} \\[2mm]
-\Huge{\textsc{ Coding Theory }}\\[3mm]
-\Large{\textbf{- Mid-summer Report -}}\\[1mm]
-\line(1,0){400} \\
-\vfill
-\textsf{Abhinav Gupta} \footnote{ Mentored by \textsf{Shourya Pandey} }\\
-\textsf{\today} \\
-
-\end{center}
-\end{titlepage}
+\subfile{sections/titlepage}
 
 \tableofcontents
 \thispagestyle{empty}
@@ -51,12 +66,67 @@
 
 \section*{Notation\markboth{Notation}{}}
 \addcontentsline{toc}{section}{\numberline{}Notation}
-
 \subfile{sections/notation}
-
+\newpage
+\section{Introduction to error-correcting codes}
+\subfile{sections/introToERCCs}
+\newpage
+\section{The main coding theory problem}
+\subfile{sections/mainCTproblem}
+\newpage
+\section{Finite fields and Vector spaces over finite fields}
+\subfile{sections/fieldsnVectorSpaces}
+\newpage
+\section{Linear Codes}
+\subfile{sections/linearcodes}
+\newpage
+\section{Dual Code, parity-check matrix and syndrome decoding}
+\subfile{sections/dualcodesNpcms}
 \newpage
 
-\section{Introduction}
+\addcontentsline{toc}{section}{\numberline{}Updated PoA}
+\section*{Updated PoA}
+I have mostly covered what I had planned till this report (adding worked out problems is left), so I'll continue with the original plan i.e. trying to complete the text, \emph{A first Course in Coding Theory}\cite{mostly}, with some help from \emph{Introoduction to Coding Theory	}\cite{rarely}.
 
+\begin{itemize}
+	\item Week 4 : \textit{May 2, 2020 - May 8, 2020}
+	\begin{itemize}
+		\itemsep-1mm
+		\item Chapter 8
+		\item Chapter 9
+	\end{itemize}
+\end{itemize}
+
+\begin{itemize}
+	\item Week 5 : \textit{May 9, 2020 - May 15, 2020}
+	\begin{itemize}
+		\itemsep-1mm
+		\item Chapter 9
+		\item Chapter 10
+	\end{itemize}
+\end{itemize}
+
+\begin{itemize}
+	\item Week 6 : \textit{May 16, 2020 - May 22, 2020}
+	\begin{itemize}
+		\itemsep-1mm
+		\item Chapter 11
+		\item Chapter 12
+	\end{itemize}
+\end{itemize}
+
+\begin{itemize}
+	\item Week 7 : \textit{May 23, 2020 - May 29, 2020}
+	\begin{itemize}
+		\itemsep-1mm
+		\item Chapter 13
+		\item Chapter 14
+	\end{itemize}
+\end{itemize}
+
+\medskip
+\addcontentsline{toc}{section}{\numberline{}References}
+\bibliographystyle{unsrt}
+\bibliography{ref.bib}
 
 \end{document}

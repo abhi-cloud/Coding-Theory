@@ -1,0 +1,185 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+	
+\begin{defn}
+	The \textbf{\emph{inner product}} $\code{u}\cdot \code{v}$ of vectors $\code{u}=u_1u_2\cdots u_n$ and $\code{v}=v_1v_2\cdots v_n$ in $V(n,q)$ is scalar defined by
+	\[
+		\code{u}\cdot \code{v} = u_1v_1 + u_2v_2+\cdots u_nv_n.
+	\]
+\end{defn}	
+If $\code{u}\cdot \code{v}=0$, then \code{u} and \code{v} are called \textbf{\emph{orthogonal}}.\\
+
+\begin{lem}\label{lem_innerproduct}
+	For any \code{u}, \code{v} and \code{w} in $V{n,q}$ and $\lambda,\; \mu \in GF(q)$, 
+	\begin{enumerate}
+	\itemsep-1mm
+		\item $\code{u}\cdot \code{v} = \code{v} \cdot \code{u}$.
+		\item $(\lambda \code{u}+\mu \code{v})\cdot \code{w} = \lambda(\code{u}\cdot \code{w})+ \mu(\code{v}\cdot \code{w})$.
+	\end{enumerate}
+\end{lem}
+
+\begin{defn}
+	Given a linear $[n,k]$-code $C$, the \textbf{\emph{dual code}} of $C$, denoted by $C^{\perp}$ is defined as
+	\[
+		C^{\perp} = \{\code{v}\in V(n,q) \;|\; \code{v}\cdot \code{u}=0 \forall \code{u} \in C\}.
+	\]
+\end{defn}
+
+\begin{lem}\label{lem_dual-necessary}
+	Suppose $C$ is an $[n,k]$-code having a generator matrix $G$, then $\code{v}\in C^{\perp} \iff \code{v}G^T=0$, where $G^T$ is transpose of $G$.
+\end{lem}
+\begin{proof}
+	$\implies :$ This part is obvious as rows of $G$ are codewords.\\
+	$\impliedby :$ Suppose the rows of $G$ are $\code{r}_1,\code{r}_2,\ldots \code{r}_k$, and thus $\code{v}\cdot \code{r}_i=0$ for all $i$. If $u\in C$, then $u=\sum_{i=1}^{k}\lambda_i\code{r}_i$ for some scalars $\lambda_i$, and
+	\begin{align*}
+		\code{v}\cdot \code{u} &=\displaystyle\sum_{i=1}^{k}\lambda_i(\code{v}\cdot \code{r}_i)\hspace{5mm} (\text{by Lemma}\; \ref{lem_innerproduct})\\
+		&=\displaystyle\sum_{i=1}^k\lambda_i0=0.
+	\end{align*}
+	Hence, \code{v} is orthogonal to all codewords in $C$.
+\end{proof}
+
+\begin{thm}
+	Suppose $C$ is an $[n,k]$-code over $GF(q)$. Then the dual code $C^\perp$ is a linear $[n,n-k]$-code.
+\end{thm}
+
+\begin{proof}
+	Suppose $\code{v}_1, \code{v}_2\in C^\perp$ and $a\in GF(q)$. Then, for all $\code{u}\in C$,
+	\begin{align*}
+		(\code{v}_1+\code{v}_2)\cdot \code{u} &= \code{v}_1\cdot \code{u} +\code{v}_2\cdot \code{u}\\
+		&= 0\\
+		(a\code{v}_1)\cdot \code(u) &= a(\code{v}_1\cdot \code{u})\\
+		&=0
+	\end{align*}
+	Hence, $C^{\perp}$ is a linear code.	\\
+	For the dimension part, notice that if two codes $C_1$ and $C_2$ are equivalent, then so are $C_1^\perp$ and $C_2^\perp$. Hence it will be enough to show $\dim{C^\perp} = n-k$ in the case when $C$ has a standard form of generator matrix
+	\[
+		G = \begin{bmatrix}
+			1 & \cdots  & 0 & a_{11} & \cdots & a_{1,n-k}\\
+			\vdots & \ddots & \vdots & \vdots & & \vdots\\
+			0 & \cdots & 1 & a_{k1} & \cdots & a_{k,n-k}
+		\end{bmatrix}
+	\]
+	Then
+	\[
+		C^\perp = \left\{(v_1,v_2,\ldots,v_n)\in V(n,q) \;|\; v_i + \displaystyle\sum_{j=1}^{n-k}v_{j+k}a_{ij} = 0, \;\forall\; i \in \{1,2,\ldots,n-k\}\right\} 
+	\]
+	We have $q^{n-k}$ choices for $(v_{k+1},\ldots,v_n)$, and for each combination be have unique vector $v_1v_2\cdots v_n$ in $C^\perp$. Hence, $|C^{\perp}|=q^{n-k}$, and $\dim{C^\perp}=n-k$. 
+\end{proof}
+
+\begin{thm}\label{thm_doubledual}
+	For any $[n,k]$-code $C$, $(C^\perp)^\perp= C$.
+\end{thm}
+\begin{proof}
+	$C\subseteq (C^\perp)^\perp$ since every vector in $C$ is orthogonal to every vector in $C^\perp$. But $\dim{(C^\perp)^\perp}= n-(n-k)=k=\dim{C}$. Therefore, $C = (C^\perp)^\perp$.
+\end{proof}
+
+\begin{defn}
+	A \textbf{\emph{parity-check matrix}} $H$ for an $[n,k]$-code $C$ is a generator matrix of $C^\perp$.
+\end{defn}
+Thus, $H$ is $(n-k)\times n$ matrix satisfying $GH^T=\code{0}$, where \code{0} is the all-zero matrix. It follows from Lemma \ref{lem_dual-necessary} and Theorem \ref{thm_doubledual}, that $C$ can be written as
+\[
+	C = \{\code{x}\in V(n,q) \;|\; \code{x}H^T = \code{0}\}.
+\] 
+
+\begin{thm}\label{thm_paritycheckmFromgenerator}
+	If $G=[I_k \;|\; A]$ is the standard form of generator matrix of an $[n,k]$-code $C$, then a parity-check matrix for $C$ is $H=[-A^T \;|\; I_{n-k}]$.
+\end{thm}
+\begin{proof}
+	Suppose
+	\[
+		G=	\left[
+			\begin{array}{ccc|ccc}
+			1 & \cdots  & 0 & a_{11} & \cdots & a_{1,n-k}\\
+			\vdots & \ddots & \vdots & \vdots & & \vdots\\
+			0 & \cdots & 1 & a_{k1} & \cdots & a_{k,n-k}
+			\end{array}
+			\right]
+	\]
+	Let
+	\[
+		H = \left[
+			\begin{array}{ccc|ccc}
+			-a_{11} & \cdots  & -a_{k1} & 1 & \cdots & 0\\
+			\vdots & \ddots & \vdots & \vdots & & \vdots\\
+			-a_{k,n-k} & \cdots & a_{k1} & 0 & \cdots & 1
+			\end{array}
+			\right]
+	\]
+	Then $H$ has the required size of a parity-matrix and its rows are linearly independent (as coefficients of $1$ in the identitiy part will remain). Also, $\code{g}_i\cdot \code{h}_j$ (where $\code{g}_i$ and $\code{h}_i$ are some rows of $G$ and $H$ respectively) is
+	\[
+		0+\cdots+0+(-a_{ij})+0+\cdots+0+a_{ij}+0+\cdots+0 = 0
+	\]
+\end{proof}
+\begin{remark}
+	Minus signs are unnecessary in the binary case.
+\end{remark}
+
+\begin{defn}
+	A parity-check matrix is called to be in \textbf{\emph{standard form}} if $H=[B \;|\; I_{n-k}]$.
+\end{defn}
+So from Theorem \ref{thm_paritycheckmFromgenerator}, we can get standard form of generator matrix from standard form of parity-check matrix and vice-versa.\\
+
+Now we will see some more efficient decoding schemes using \emph{parity-check matrices}, but before that some definitions and lemmas.
+
+\begin{defn}
+	Suppose $H$ is a parity-check matrix of an $[n,k]$-code $C$. Then for any vector $y\in V(n,q)$, the row vector
+	\[
+		S(\code{y})= \code(y)H^T
+	\]
+	is called the \textbf{\emph{syndrome}} of \code{y}.
+\end{defn}
+It is quite that $S(\code{y})=0$ if and only if $\code{y}\in C$.
+
+\begin{lem}
+	Two vectors \code{u} and \code{v} are in the same coset of $C$ if and only if they have the same syndrome.
+\end{lem}
+\begin{proof}
+	\code{u} and \code{v} are in the same coset
+	\begin{align*}
+		&\iff \code{u}+C=\code{v}+C\\
+		&\iff \code{u}-\code{v}\in C\\
+		&\iff (\code{u}-\code{v})H^T=\code{0}\\
+		&\iff \code{u}H^T = \code{v}H^T\\
+		&\iff S(\code{u}) = S(\code{v})\\
+	\end{align*}
+\end{proof}
+
+\begin{cor}\label{corr_cos-syn}
+	There is a one-to-one correspondance between cosets and syndromes.
+\end{cor}
+
+In standard array decoding, if $n$ is large, finding codewords in the array becomes increasingly inefficient. The following \emph{syndrome decoding scheme} is much more efficient.\\
+
+\textbf{Syndrome Decoding Scheme:} Instead of storing all the cosets in the standard array, if we store the coset leaders along with their corresponding coset syndromes, will be sufficient for achieving the same probability of error detection. When a vector \code{y} is received, we calculate $S(\code{y}) = \code{y}H^T$ and locate $\code{z}=S(\code{y})$ in the syndromes column, find the corresponding coset leader $f(\code{z})$, and decode \code{y} as $\code{x}=\code{y}-f(\code{z})$. This works because of Corollary \ref{corr_cos-syn}.\\\\
+For example, let $C$ be a binary $[4,2]$-code with generator matrix
+\[
+	G = \begin{bmatrix}
+		1 & 0 & 1 & 1\\
+		0 & 1 & 0 & 1\\
+	\end{bmatrix}
+\]
+then $C=\{0000,1011,0101,1110\}$ and,
+\[
+	H = \begin{bmatrix}
+		1 & 0 & 1 & 0\\
+		1 & 1 & 0 & 1\\
+	\end{bmatrix}
+\]
+The syndrome look-up table of $C$ will be
+\[
+	\begin{tabular}{|c|c|}
+		\hline
+		\text{syndrome \code{z}} & \text{coset leaders} f(\code{z})\\
+		\hline
+		00 & 0000 \\
+		11 & 1000\\
+		01 & 0100\\
+		10 & 0010\\
+		\hline 					
+ 	\end{tabular}
+\]
+ 
+\textbf{Incomplete Decoding Scheme:} In this we mix error correction as well detection. If $d(C)=2t+1$ or $2t+1$, we can precisely correct $\leq t$ errors, using syndrome lookup table as all the vectors with weight $\leq t$ will be coset leaders. Otherwise, we will simply seek \emph{re-transmission}. So now, we now need to store even lesser data in the lookup table. 
+
+\end{document}

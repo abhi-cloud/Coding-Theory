@@ -1,5 +1,58 @@
 \documentclass[../main.tex]{subfiles}
 
 \begin{document}
-\textbf{Hello world!}
+
+The following notations will be followed in this report. These are basic notations, same as those done in high school or above, by most of the people.
+
+\subsection*{Sets}
+A \emph{set} is a collection of objects. The following sets (among others) will be used in this report:\\
+$\mathbb{R}:$ the set of real numbers.\\
+$\mathbb{Z}:$ the set of integters (positive, negative, or zero).\\
+$\mathbb{Z}_n: \{0,1,2,\ldots,n-1\}$\\
+
+The symbols $\emptyset,\; \in,\; \notin,\; \cup,\; \cap,\; \subseteq$ and $\supseteq$ have their usual meanings. If $S$ and $T$ are sets and, $S\cap T = \emptyset$, then $S$ and $T$ are said to be \emph{disjoint}.\\ 
+If $S$ is a set and $P$ a property (or a combination of properties), we can define a new set with the notation
+\[ \{x\in S\;|\;P(x)\} \]
+which denotes `set of all elements of $S$ which have property $P$'.
+
+The \emph{order} or \emph{cardinality} of a finite set $S$ is the number of elements in $S$ and is denoted by $|S|$. For example, $|\mathbb{Z}_n|=n$.\\
+The \emph{Cartesian Prooduct} of two sets $S$ and $T$ is given by
+\[ S\times T = \{(s, t)\;|\; s\in S,\;t\in T\}.\]
+If $S$ and $T$ are finite sets, then $|S\times T| = |S|\cdot |T|$.\\
+In general,
+\[ S_1\times S_2\times \cdots \times S_n = \{(s_1, s_2, \ldots, s_n)\; |\; s_i\in S_i,\; i = 1,2,\ldots,n\}, \] is the \emph{Cartesian Product} (a set of \emph{ordered $n$-tuples}) of $n$ sets $S_1, S_2,\ldots, S_n$.\\
+In this report, an ordered $n$-tuple $(x_1,x_2,\ldots,x_n)$ will be denoted simply as $x_1x_2\cdots x_n$. 
+
+\subsection*{Combinatorics}
+Number of ways of choosing $m$ distinct objects from $n$ distinct objects\\
+or\\
+the coefficient of $x^m$ in $(1+x)^n$\\ are both given by
+\[ 
+	\binom{n}{m} = \dfrac{n!}{m!\;(n-m)!}
+\] 
+where $p! = p(p-1)\cdots3.2.1 $ for $m> 0$ and $0! = 1$.\\
+This bracket notation will be used throughout the report.\\
+
+A \emph{permutation} of a set $S = \{x_1,x_2,\ldots,x_n\}$ is a one-to-one mapping from set $S$ to itself. It is denoted by
+\[
+	\begin{pmatrix}
+	x_1 & x_2 & \ldots & x_n\\
+	\downarrow & \downarrow & & \downarrow\\
+	f(x_1) & f(x_2) & \ldots & f(x_n)\\
+	\end{pmatrix}
+\] 
+
+\subsection*{Modular Arithmatic}
+Let $m$ be a fixed positve integer. Two integers $a$ and $b$ are written as
+\[
+	a\equiv b\Mod{m} 
+\]
+if $a-b$ is divisible by $m$.\\
+It can be noted that if $a\equiv a' \Mod{m}$ and $b\equiv b' \Mod{m}$ then
+\begin{enumerate}[label=(\roman*)]
+	\itemsep-1mm
+	\item $a+b\equiv a' + b' \Mod{m}$
+	\item $ab\equiv a'b' \Mod{m}$
+\end{enumerate}
+\textit{Fermat's Little Theorem}: Let $p$ be a prime, and $a$ be any integer, then $a^p\equiv a\Mod{p}$
 \end{document}

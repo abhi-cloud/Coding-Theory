@@ -1,0 +1,107 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+\emph{Error-correcting codes} are used to reduce errors when data is transmitted in noisy communication channels, like a telephone line, a satellite communication link, etc.
+The objective of error-correcting codes is to add a certain amount of redundancy to the message, so that even if some errors occur during transmission, we have high probability to recover the original message.
+
+\begin{defn}
+	A \textbf{\emph{q-ary code}} is a given set of sequences of symbols where each symbol is chosen from a set $F_q = \{\lambda_1, \lambda_2, \ldots ,\lambda_q\}$ of $q$ distinct elements. The set $F_q$ is called the \textbf{\emph{alphabet}}. 
+\end{defn}
+In particular, the $2$-ary codes are called \emph{binary codes}.
+
+\begin{defn}
+	A code in which every codeword is of fixed length $n$ is called \textbf{\emph{block code of length n}}.
+\end{defn}
+We will deal with such codes only, so from now on, `code' will mean `block code'. A code $C$ with $M$ codewords of length $n$ is often written as $M\times n$ array. For example, the \emph{binary repitition code} of length 3 is
+\(
+	\begin{bmatrix}
+		0 0 0\\
+		1 1 1\\
+	\end{bmatrix}
+\).\\
+The elements of the set $(F_q)^n$ are called \emph{words} or \emph{vectors} and if $C$ is a $q$-ary code of length $n$ then $C\subseteq (F_q)^n$.  
+\[
+	(F_q)^n = \{\textbf{a}\; | \; \textbf{a} = a_1a_2\cdots a_n,\;a_i\in F_q\}  
+\]
+ 
+\begin{defn}[\textbf{Hamming distance}]
+	The \textbf{\emph{distance}} between two vectors $\textbf{x}$ and $\textbf{y}$ of $(F_q)^n$, denoted by $d(\textbf{x},\textbf{y})$, is the number of places in which they differ.
+\end{defn}
+
+\begin{thm}
+	The Hamming distance satisfies:
+	\begin{enumerate}[label=(\roman*)]
+		\itemsep-1mm
+		\item $d(\textbf{x},\textbf{y}) = 0 \iff \textbf{x}=\textbf{y}$.
+		\item $d(\textbf{x},\textbf{y}) = d(\textbf{y},\textbf{x})\; \forall \; 					  \textbf{x},\textbf{y} \in (F_q)^n$.
+		\item $d(\textbf{x},\textbf{y}) \leq d(\textbf{x},\textbf{z}) + d(\textbf{y},				  \textbf{z})\; \forall \; \textbf{x},\textbf{y},\textbf{z} \in (F_q)^n$.
+				(Triangle inequality)  
+	\end{enumerate}
+\end{thm}
+\begin{proof}
+	First two statements are trivial. In third, we note that $\dis{x}{y}$ is the minimum number of changes required to change $\code{x}$ to $\code{y}$, but we can also do this change by first changing $\code{x}$ to $\code{z}$ in $\dis{x}{z}$ changes and then from $\code{z}$ to $\code{y}$ in $\dis{z}{y}$ changes. Thus, $\dis{x}{y}\leq \dis{x}{z} + \dis{y}{z}$.    	
+\end{proof}
+
+Suppose a codeword $\code{x}$ is being transmitted, and we receive a distorted vector $\code{y}$. If we decode it as $\code{x}'$ such that $d(\textbf{y},\textbf{x}')$ is minimum, then this decoding scheme is called \textbf{\emph{nearest neighbour decoding}}.\\ 
+\begin{defn}
+	A transmitting channel is said to be \textbf{\emph{q-ary symmetric channel}} if
+	\begin{enumerate}
+	\itemsep-1mm
+	\item Each symbol transmitted has the same probability $p (<\frac{1}{2})$ of being recieved in error.
+	\item If a symbol is received with error, then all $q-1$ errors are equally likely.
+	\end{enumerate}
+\end{defn}
+
+\begin{thm}
+	For a binary symmetric channel, \emph{nearest neighbour decoding} is the \emph{maximum likelihood decoding}, i.e. \emph{nearest neighbour decoding} gives the highest probability of error detection in these types of channels.
+\end{thm}
+
+\begin{proof}
+	The probability that codeword has errors at given $i$ positions is $p^i(1-p)^{n-i}$, which decreases as $i$ increases (as $p < \frac{1}{2}$), hence the least distant word is the most probable of being the original word. 
+\end{proof}
+
+\begin{defn}
+	For a code $C$, we define \textbf{\emph{minimum distance}}, denoted by $d(C)$, as the smallest of all the distances between different codewords of $C$, i.e.
+	\[
+		d(C)=\min\;\{\dis{x}{y}\;| \; \code{x},\code{y} \in C,\; \code{x} \neq \code{y}\}
+	\]
+\end{defn}
+
+\begin{thm}\label{detection-correction}
+	\hfill
+	\begin{enumerate}[label=(\roman*)]
+		\item A code $C$ can detect upto $s$ errors if $d(C)\geq s+1$. 
+		\item A code $C$ can correct upto $t$ errors if $d(C)\geq 2t+1$.
+	\end{enumerate}
+\end{thm}
+\begin{proof}
+	\hfill
+	\begin{enumerate}[label=(\roman*)]
+		\item Suppose $d(C)\geq s+1$. Now if the recieved codeword has less than or equal to $s$ errors, it will be a different codeword than any present in $C$. Hence, the error will be detected. 
+		\item Suppose $d(C)\geq 2t+1$. Let the original codeword be \code{x} and received one be \code{y} with $\dis{x}{y}\leq t$. Let \code{x}' be any codeword in $C$ other than \code{x}, then by triangle inequality,
+		\[
+			d(\textbf{x},\textbf{x}')\leq d(\textbf{x},\textbf{y}) + d(\textbf{x}', \textbf{y}) \geq 2t+1 
+		\]
+		\[
+			d(\textbf{x}', \textbf{y}) \geq t+1
+		\]
+		Therefore, \code{x} is the nearest neighbour to \code{y}, and nearest neighbour decoding corrects the error.
+	\end{enumerate}
+\end{proof}
+
+\begin{cor}\label{cor_det-crctn}
+	If code $C$ has minimum distance $d$ then it can be used either:
+	\begin{enumerate}[label=(\roman*)]
+		\item to detect upto $d-1$ errors; or
+		\item\label{correction} to correct upto $\fl{\dfrac{d-1}{2}}$ errors in any coedword.\\
+		( $\fl x$ denotes the greatest integer leass than or equal to $x$)
+	\end{enumerate}				
+\end{cor}
+
+\begin{proof}
+	Simple rearrangment of terms in the Theorem \ref{detection-correction} will give the result.
+\end{proof}
+
+\textbf{Notation}: A $(n,M,d)$-\emph{code} is a code with $M$ words of length $n$, having minimum distance $d$.
+
+\end{document}
