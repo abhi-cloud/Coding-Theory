@@ -1,0 +1,277 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+
+A good $(n,M,d)$-code should allow:
+\begin{enumerate}
+\itemsep-1mm
+	\item fast transmission.
+	\item transmission of wide variety of messages.
+	\item to correct many errors.
+\end{enumerate}
+These will be possible if we have small $n$, large $M$ and $d$. But these are, quite intutively also, conflicting aims. We generally aim for maximizing $M$, given $n$ and $d$.\\
+We denote by $A_q(n,d)$ the largest value of $M$ such that $q$-ary $(n,M,d)$-code exists.
+
+\begin{thm}
+	\hfill
+	\begin{enumerate*}[label=(\roman*), before=\unskip{}]
+		\item $A_q(n,1)=q^n$.
+		\item $A_q(n,n)=q$.
+	\end{enumerate*}
+\end{thm}
+\begin{proof}
+	\begin{enumerate*}[label=(\roman*), before=\unskip{}]
+		\item $d=1$ reqiures the words to be \emph{distinct} only. Therefore, $(n,M,1)$-code $= (F_q)^n \implies\\ M=A_q(n,1)=q^n$\\ 
+		\item $d=n$ implies symbols appearing at any fixed position in the code must be all different\\ $\implies A_q(n,d) \leq q$. But there exists $q$-ary repetition code of length $n$,
+		$
+			\begin{bmatrix}
+				00\ldots 0\\
+				11\ldots 1\\
+				\vdots\\
+				qq\ldots q
+			\end{bmatrix}
+		$, hence $A_q(n,n)=q$.  
+	\end{enumerate*}
+\end{proof}
+
+\begin{defn}
+	Two $q$-ary codes are said to be \textbf{\emph{equivalent}} if one can be obtained from another by combinations of operations of the types, i.e.
+	\begin{enumerate*}[label=(\roman*), before=\unskip{}]
+		\item permuations of the positions of the code.
+		\item permutations of the symbols appearing at a fixed position.
+	\end{enumerate*}
+\end{defn}
+The second point means assigning a permutation function $f$ on the \emph{alphabet}, and applying $f$ in a particular column of the code. Distances between operators remain same in these operations, so \emph{equivalent} codes have the same parameteres $(n,M,d)$ and therefore, will correct the same number of errors.
+
+\begin{lem}
+	Any $q$-ary $(n,m,d)$-code is equivalent to a $(n,M,d)$-code containing the vector $\textbf{0}=00\ldots 0$ .
+\end{lem}
+
+\begin{proof}
+	For any codeword $\textbf{x}=x_1,x_2\cdots x_n$ in the code, for each $x_i\neq 0$ applying the permutation
+	\[
+		\begin{pmatrix}
+			0 & x_i  & j \\
+			\downarrow & \downarrow & \downarrow & \forall\; j \neq 0,x_i \\
+			x_i & 0 & j
+		\end{pmatrix}
+	\]
+	to the symbols of position $i$, will give the desired $(n,M,d)$-code.
+\end{proof}
+
+Now taking $F_2$ to be the set $\{0,1\}$. Let $\textbf{x} = x_1x_2\cdots x_n,\; \textbf{y} = y_1y_2\cdots y_n \in (F_2)^n$, we define the following operations, namely,
+the \textbf{\emph{sum}} $\code{x} + \code{y}$ is the vector in $(F_2)^n$ defined as
+\[
+	\code{x} + \code{y} = (x_1+y_1,x_2+y_2,\ldots,x_n+y_n)
+\]
+while the \textbf{\emph{intersection}} $\code{x} \cap \code{y}$ is a vector in $(F_2)^n$ defined as
+\[
+	\code{x} \cap \code{y} = (x_1y_1,x_2y_2,\ldots,x_ny_n)  
+\]
+The terms $x_i+y_i$ and $x_iy_i$ are calculated modulo $2$.\\
+The \textbf{\emph{weight}} of a vector \code{x} in $(F_2)^n$, denoted $w(\textbf{x})$, is the number of $1$s in \code{x}.\\
+
+The proofs of the following two lemmas are ommited as they are quite easy to determine once one gets the lemma.
+
+\begin{lem}
+	If $\code{x},\; \code{y} \in (F_2)^n$, then $\dis{x}{y}=w(\code{x}+\code{y})$. 
+\end{lem}
+
+\begin{lem}\label{dis-weight}
+	If $\code{x},\; \code{y} \in (F_2)^n$, then 
+	\[
+		\dis{x}{y} = w(\code{x}) + w(\code{y}) - 2w(\code{x} \cap \code{y}).
+	\] 
+\end{lem}
+
+\begin{thm}\label{parity_property}
+	Suppose $d$ is odd. Then a binary $(n,M,d)$-code exists	if and only if $(n+1,M,d+1)$-code exists.
+\end{thm}
+
+\begin{proof}
+	$\implies$ :
+	Suppose $C$ is a binary $(n,M,d)$-code and $\code{x} = x_1x_2\cdots x_n$ be one of it's codewords. Define
+	\(
+		x_{n+1} = \sum_{i=1}^{n}x_i
+	\).
+	Let $\hat{C}$ be a $n+1$ length code, given by
+	\[
+		\hat{C} = \{\hat{\textbf{x}}\; |\; \hat{\textbf{x}} = x_1x_2\cdots x_nx_{n+1} \forall\; \code{x}\in C\} 
+	\]
+	Now $w(\hat{\code{x}})$ is every codeword $\hat{\code{x}}$ in $\hat{C}$, it follows from Lemma \ref{dis-weight} that $d(\hat{\code{x}}, \hat{\code{y}})$ will be even for all $\hat{\code{x}}, \hat{\code{y}}$ in $\hat{C}$. Hence, $d(\hat{C})$ is even. But $d\leq d(\hat{C})\leq d+1$, so $d(\hat{C}=d+1$ as $d$ is odd. Therefore, there exists a binary $(n+1,M,d+1)$-code. (This type of operation is called adding overall \emph{parity-check} on a code $C$)\\
+	$\impliedby$:
+	Suppose $C$ is a binary $(n+1,M,d+1)$-code. Let $\code{x}, \code{y} \in C$ such that $\dis{x}{y} = d+1$. Now we remove one column where they differ from the whole code $C$. We are left now left with $(n,M,d)$-code. Therefore, binary $(n,M,d)$-code exists.
+\end{proof}
+
+\begin{cor}\label{odd/even_maxM}
+	If $d$ is odd, then $A_2(n+1,d+1)=A_2(n,d)$. Equivalently, if $d$ is even, then $A_2(n,d)=A_2(n-1,d-1)$.
+\end{cor}
+\begin{proof}
+	Follows directly from Theorem \ref{parity_property}.
+\end{proof}
+
+Notion of a \textbf{\emph{sphere}} in $(F_q)^n$, natural definition that follows from Hamming distance.
+\begin{defn}
+	For any vector $\code{u}$ in $(F_q)^n$, a \textbf{\emph{sphere}} of radius $r$ and centre $\code{u}$, is given by
+	\[
+		S(\code{u}, r)= \{\code{v}\in (F_q)^n\; |\; \dis{u}{v} \leq r \}
+	\] 
+\end{defn}
+
+\begin{lem}
+	A sphere of radius $r$ in $(F_Q)^n$ contains exactly
+	\[
+		\binom{n}{0}+\binom{n}{1}(q-1)+\binom{n}{2}(q-1)^2+\cdots+\binom{n}{r}(q-1)^r
+	\]
+	vectors.
+\end{lem}
+
+\begin{proof}
+	For finding vectors with a distance $d \in \{1,2,\ldots,r\}$, we can choose $d$ positions from the centre vector in $\binom{n}{d}$ ways, and we have $(q-1)$ choices for each of the positions. So, total vectors at a distance $d$ from the the centre vector are $\binom{n}{d}(q-1)^d$. Then summing over all possible distances gives the result.
+\end{proof}
+
+\begin{thm}[\textbf{Hamming bound} or the \textbf{sphere-packing bound}]\label{ham_bound}
+	A $q$-ary $(n,M,d)$-code saisfies
+	\[
+		M\left\{\binom{n}{0}+\binom{n}{1}(q-1)+\binom{n}{2}(q-1)^2+\cdots + \binom{n}{t}(q-1)^t \right\} \leq q^n
+	\]
+	where $t=\fl{\dfrac{d-1}{2}}$.
+\end{thm}
+	
+\begin{proof}
+	By Corollary \ref{cor_det-crctn}\ref{correction}, spheres of radius $\leq t$ and centered at the codewords won't overlap, therefore, the sum of elements of all these sphere will not exceed the \emph{cardinality} of $(F_q)^n$. 
+\end{proof}
+
+\begin{defn}
+	A code that achieves the \emph{sphere-packing bound}, i.e. equality occurs in Theorem \ref{ham_bound}, is called a \textbf{\emph{perfect code}}.  
+\end{defn}
+Some \emph{trivial} examples of \emph{perfect codes} are binary-repition code, single word codes or the whole set $(F_q)^n$. But the \emph{non-trivial} ones are the ones we are looking to find, as these codes will allow us to transmit/receive messages with very less probable grey region.
+
+\begin{remark}
+	For binary codes, the \emph{Hamming bound} turns out be close to the actual values of $A_2(n,d)$ when $n \geq 2d+1$. It is a weak bound for the case when $n \leq 2d$. For such cases, \emph{Plotkin bound} is better and the following lemmas will lead to the bound.	
+\end{remark}
+
+\begin{lem}\label{plotkin_lemma1}
+	If there exists a binary $(n,M,d)$-code, then there exists a binary $(n-1, M',d)$-code such that $M'\geq \frac{M}{2}$. Further, $A_2(n-1,d)\geq \frac{A_2(n,d)}{2}$.
+\end{lem}
+
+\begin{proof}
+	Let $C$ be the existing $(n,M,d)$-code then if we partition the set $C$ in two disjoint sets, those ending with $0$ and $1$, then atleast one of them will have \emph{order} $\geq \frac{M}{2}$ (as the sum of orders is $M$). Then if we remove the last bit from this larger set then we have our binary $(n-1,M',d)$-code with $M'\geq \frac{M}{2}$. Also, therefore $A_2(n-1,d)\geq \frac{A_2(n,d)}{2}$.
+\end{proof}
+
+\begin{lem}\label{plotkin_lemma0}
+	If $C$ is a binary $(n,M,d)$-code with $n<2d$, then
+	\[
+		M\leq
+		\begin{cases}
+		\dfrac{2d}{2d-n} & \text{if M is even} \\
+		\dfrac{2d}{2d-n} -1 & \text{if M is odd}
+		\end{cases}.
+	\]
+	In paricular,
+	\[
+		A_2(n,d)\leq 2\fl{\dfrac{d}{2d-n}}
+	\]
+\end{lem}
+
+\begin{proof}
+	Let $C=\{\code{x}_1,\code{x}_2,\ldots,\code{x}_n\}$ and $T$ be the $\binom{M}{2}\times n$ matrix whose are vectors $\code{x}_i + \code{x}_j$ for $1\leq i<j\leq M$. Now in $T$, number of non-zero entries per row is $d(\code{x}_i,\code{y}_j)$, i.e. greater equal to $d$, let the total non-zero entries of the matrix be $w(T)$. Thus,
+	\[
+		\binom{M}{2}d \leq L \implies \frac{M(M-1)}{2}\cdot d \leq w(T)
+	\]
+If $t_j$ codewords have $1$ in $j^{th}$ position then total number of $1$s in $j^{th}$ column of $T$ are
+	\[
+		t_j(M-t_j) \leq
+		\begin{cases}
+		\frac{M^2}{4} & \text{if M is even} \\
+		\frac{M^2-1}{4} & \text{if M is odd} \\
+		\end{cases}
+	\]
+Thus,
+	\[
+		w(T) \leq
+		\begin{cases}
+		\frac{M^2}{4}\cdot n & \text{if M is even} \\
+		\frac{M^2-1}{4}\cdot n & \text{if M is odd}
+		\end{cases}
+	\]
+From above equations:\\
+\phantom{wfds} If $M$ is even:
+	\begin{align*}
+		\frac{M(M-1)}{2}\cdot d &\leq \frac{M^2}{4}\cdot n \\
+		2(M-1)d &\leq Mn\\
+		\dfrac{M}{2} &\leq \dfrac{d}{2d-n}\\
+		\dfrac{M}{2} &\leq \fl{\dfrac{d}{2d-n}}\hspace{5mm} \left(\text{as}\; \frac{M}{2}\in \mathbb{Z}\right)\\
+		M &\leq 2\fl{\dfrac{d}{2d-n}}
+	\end{align*}
+\\
+\phantom{wfds} If $M$ is odd:
+	\begin{align*}
+		\frac{M(M-1)}{2}\cdot d &\leq \frac{M^2-1}{4}\cdot n \\
+		2Md &\leq (M+1)n\\
+		M &\leq \dfrac{n}{2d-n} \\
+		\dfrac{M+1}{2} &\leq \dfrac{d}{2d-n} \\
+		\dfrac{M+1}{2} &\leq \fl{\dfrac{d}{2d-n}}\hspace{5mm} \left(\text{as}\; \frac{M+1}{2}\in \mathbb{Z}\right)\\
+		M &\leq 2\fl{\dfrac{d}{2d-n}} 
+	\end{align*}  	 
+\end{proof}
+
+\begin{thm}[\textbf{Plotkin Bound}]
+	For a binary $(n,M,d)$-code:	\\
+	\begin{enumerate*}[label=(\roman*), before=\unskip{}]
+		\item if $d$ is even and $n<2d$, then
+			\(
+				A_2(n,d)\leq 2\fl{\dfrac{d}{2d-n}}.
+			\)\\
+		\item if $d$ is odd and $n<2d+1$, then
+			\(
+				A_2(n,d)\leq 2\fl{\dfrac{d+1}{2d+1-n}}.
+			\)\\
+		\item if $d$ is even, then $A_2(2d,d)\leq 4d$.\\
+		\item if $d$ is odd, then $A_2(2d+1,d)\leq 4d+4$.\\ 
+	\end{enumerate*}		
+\end{thm}
+
+\begin{proof}
+	\begin{enumerate}[label=(\roman*), before=\unskip{}]
+	\itemsep-1mm
+		\item\label{first} Directly follows from Lemma \ref{plotkin_lemma0}.\\
+		\item From Corollory \ref{odd/even_maxM}, we have $A_2(n,d)=A_2(n+1,d+1)$, therefore,
+		\(
+			A_2(n,d) = A_2(n+1,d+1) = 2\fl{\dfrac{d+1}{2d+1-n}}	
+		\)(follows from part\ref{first} as $d+1$ is even)
+		\item\label{third} From Lemma \ref{plotkin_lemma1}, $A_2(2d,d)\leq 2A_2(2d-1,d)$. Now, from part\ref{first}, we have $A_2(2d-1,d)\leq 2\fl{\dfrac{d}{1}} \implies A_2(2d,d)\leq 4d$
+		\item Follows from Corollory \ref{odd/even_maxM} and part\ref{third}. 
+	\end{enumerate}
+\end{proof}
+
+\begin{defn}
+	A \textbf{\emph{balanced-block design}} consists of a set $S$ of $v$ elements, called \emph{points}, and a collection of $b$ subsets of $S$, called \emph{blocks}, such that for some fixed $k$, $r$ and $\lambda$
+	\begin{enumerate}
+	\itemsep-1mm
+		\item each blocks contain exactly $k$ points.
+		\item each point occurs in exactly $r$ blocks.
+		\item each pair of points occurs together in exactly $\lambda$ blocks.
+	\end{enumerate}
+	We denote this design as a $(b,v,k,r,\lambda)$-\emph{design}.
+\end{defn}
+A \emph{balanced block design} satisfy these two basic conditions, namely,\; 
+\begin{enumerate*}[label=(\roman*), before=\unskip{}]
+	\item $bk=vr$.
+	\item $r(k-1)=\lambda(v-1)$.
+\end{enumerate*}
+First one results from counting all the points in two ways, points in each block and number of blocks each point is in.
+Second results from equating the pairs of a particular point in two ways.
+\begin{defn}
+	The \textbf{\emph{incidence-matrix}} $A=[a_{ij}]$ of a block design is a $v\times b$ matrix, where rows corresponds to points $x_1,x_2,\ldots,x_v$ of the design while the columns represent the blocks $B_1,B_2,\ldots,B_b$. The matrix is given by
+	\[
+		a_{ij}=
+		\begin{cases}
+			1 & \text{if}\; x_i\in B_j \\
+			0 & \text{if}\; x_i\notin B_j \\
+		\end{cases}
+	\]
+	
+\end{defn}
+\emph{Incidence matrices} of block codes are used to generate \emph{perfect codes}.
+\end{document}

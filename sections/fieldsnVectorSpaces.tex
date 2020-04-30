@@ -1,0 +1,132 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+
+\begin{defn}
+	A field $F$ is a set of with two operations $+$(addition) and $\cdot$ (multiplication) satisfiying the following conditions.
+	
+	\begin{enumerate}[label=(\roman*)]
+	\itemsep-1mm
+	\item $a+b,\;a\cdot b \in F \;\forall\; a,\;b \in F$.
+	\item $a+b=b+a, a\cdot b = b\cdot a \;\forall\; a,\;b \in F$. (commutative)
+	\item $(a+b)+c = a+(b+c), a\cdot (b\cdot c) = (a\cdot b)\cdot c.$ (associative)
+	\item $a\cdot (b+c) = a\cdot b + a\cdot c \;\forall\; a,\; b,\; c \in F$. (distributive)
+	\item $\exists 0, 1 \in F$ such that $a+0 = a, a\cdot 1 = a\;\forall\; a \in F$. (identity elements)
+	\item $\exists c \in F$ such that $a+c = 0\;\forall\; a \in F$. (additive inverse of $a$)
+	\item $\exists c \in F$ such that $a\cdot c = 1\;\forall\; a \in F,\; a\neq 0$. (multiplicative inverse of $a$)
+	\end{enumerate}	 
+\end{defn}
+We will denote $a\cdot b$ simply by $ab$, additive inverse of $a$ by $-a$ and multiplicative inverse of $a$ by $a^{-1}$.
+For any field $F$, we can deduce the following from the axioms of definition:
+\begin{enumerate}
+	\itemsep-1mm
+	\item The identity elements are unique.
+	\item $a0 = 0$.
+	\item $ab=0 \implies a=0$ or $b=0$.
+	\item $-(-a) = a,\; (a^{-1})^{-1} = a$.
+	\item $(-1)a = -a$, also $(-a)(-a) = aa$ and we can continue.	
+\end{enumerate}
+	
+\subsection{Finite fields}
+	\begin{defn}
+	A \textbf{\emph{finite field}} is a field having a finite number of elements. The number of elements is called the \textbf{\emph{order}} of the \emph{field}.
+	\end{defn}
+	\begin{thm}
+	There exists a field of order $q$ iff $q$ is a \emph{prime-power}. Also, if $q$ is a prime, there is only one field, upto relabelling.
+	\end{thm}
+	We will not go into proof as it requires some concepts of abstract algebra, which will be beyond the scope of this report. A field of order $q$ is often called \emph{Galois Field} of order $q$ and is denoted by $GF(q)$.\\
+	\textbf{Note:} From now on in this report, mentioning $GF(q)$ will imply that $q$ is a prime power.
+	
+	\begin{thm}
+	$\mathbb{Z}_m$ is a field (addition and multiplication defined as \emph{modulo} $m$) iff $m$ is a \emph{prime}.
+	\end{thm}
+	\begin{proof}
+		The first six properties can be easily verified even if $m$ is not a prime, as the addition and multiplication are \emph{modular}.\\
+		Now for the multiplicative inverse property,\\
+		$\implies$ : Suppose $m$ is not prime, then $m=ab$ for some non-zero $a,b<m$, 
+		but then 
+		\[
+			ab\equiv 0\Mod{m} \implies a=0\;\text{or}\;b=0	
+		\] which is contradiction. Hence, $m$ is prime.\\
+		$\impliedby$ : We have to prove that for all $a$ in $\mathbb{Z}_m$, there exists a multiplicative inverse, $a^{-1}$. Consider the elements $a, 2a, 3a,\ldots, (m-1)a$, each of these elements will have non-zero remainder with $m$. Further, these remainders will be distinct, for otherwise $(i-j)a\equiv 0\Mod{m}$ for some $i,j \in \{1,2,\ldots,m-1\}, i\neq j$, therefore $(i-j)a\equiv 0\Mod{m}$, which is not possible as $i,j$ are distinct and $|i-j|,a < m$ which is a prime. Therefore, there must exist an element with remainder $1$ in the initial set	. Hence, the multiplicative inverse exists. 
+	\end{proof}
+	\begin{thm}
+	Suppose $F$ is a finite field, with $\alpha \in F$, then there exists a prime number $p$ such that $p\alpha = \alpha+\alpha+\cdots +\alpha\text{(p terms)} = 0$. The prime number $p$ is called \textbf{\emph{characterstic}} of field $F$.
+	\end{thm}
+	\begin{proof}
+		The term $n\alpha$ must have a same value for two different values of $n$ as we iterate over $n$ because $F$ is a finite field. Let those $n$ be $a,\;b$ such that $0<a<b$, then $(b-a)\alpha = 0$. Let the minimum value of $b-a$ be $p$. So, $p\alpha = 0$. If p was co-prime, then $p=lm$, with $0<l,m<p \implies (lm)\alpha=(l\alpha)(m\alpha)=0 \implies l\alpha=0 $ or $m\alpha=0$, which is contradiction. Hence, $p$ is a prime. 
+	\end{proof}
+				
+\subsection{Vector spaces over finite fields}
+	\begin{defn}
+		A set is $V$ is called a \textbf{\emph{vector-space}} over a field $F$, if $+$ and $\cdot$ are defined as $+: V\times V\rightarrow V$ binary-operation on $V$, and $\cdot :F\times V\rightarrow V$ a function, and the following axioms are satisfied.
+		\begin{enumerate}[label=(\roman*)]
+		\itemsep-1mm
+		\item $u+v = v+u \;\forall\; u,v \in V$.
+		\item $u+(v+w) = (u+v)+w \;\forall\; u,v,w \in V$.
+		\item There exists $0\in V$ such that $\;\forall\; u \in V: v+0=v$.
+		\item For every $u\in V$, $\exists w\in V$ such that $v+w=0$.
+		\item $a\cdot(v+w) = a\cdot u+a\cdot v \;\forall\; u,v \in V,\; a\in F$.
+		\item $(a+b)\cdot(u) = a\cdot u + b\cdot u \;\forall\; u \in V,\; a,b\in F$.
+		\item $(ab)\cdot(u) = a\cdot(b\cdot u) \;\forall\; u \in V,\; a,b\in F$.
+		\item $1\cdot u = u \;\forall\; u\in V$ ($1$ is multiplicative identitiy of $F$). 	
+\end{enumerate}
+	Elements of $V$ are called \emph{vectors} and of $F$ are called \emph{scalars}.		 
+	\end{defn}
+	
+The set $GF(q)^n$ of all the $n$-tuples over $GF(q)$ will be denoted as $V(n,q)$.\\
+It can be seen that $V(n,q)$ is a vector-space over $GF(q)$ if we define addition and 	scalar multiplication as follows. For $\code{x}=\{x_1,x_2,\ldots,x_n\},\code{y}=\{y_1,y_2,\ldots,y_n\} \in V(n,q)$ and $a\in F$.
+\begin{itemize}
+	\itemsep-1mm
+	\item $\code{x} + \code{y} = (x_1+y_1,x_2+y_2,\ldots,x_n+y_n)$
+	\item $a\code{x}=(ax_1, ax_2,\ldots,ax_n)$
+\end{itemize}
+\begin{defn}
+	A subset of $V(n,q)$ is called a \textbf{\emph{subspace}} of $V(n,q)$ if itself is vector space under same addition and scalar multiplication.
+\end{defn}
+\begin{thm}
+	A subset $C$ of $V(n,q)$ is a subspace if and only if\\   
+	\begin{enumerate*}[label=(\roman*), before=\unskip{}]
+		\item If $\code{x},\code{y} \in C$, then $\code{x}+\code{y} \in C$.\\
+		\item If $a\in GF(q)$ and $\code{x}\in C$, then $a\code{x}\in C$.
+	\end{enumerate*}
+\end{thm}
+\begin{proof}
+	One can easily see that if these conditions are true, then all the axioms of vector space are satisfied. Therefore, $C$ is a subspace.
+\end{proof}
+A \textbf{\emph{linear combination}} of $r$ vectors $\textbf{v}_1,\textbf{v}_2,\ldots,\textbf{v}_r$ is a vector of the form $a_1\code{v}_1+a_2\code{v}_2+\cdots+a_r\code{v}_r$, where $a_i$ are scalars. \textbf{Note:} Set of all linear combinations of a set of given vectors is a subspace of$V(n,q)$.\\
+A set of vectors $\{\textbf{v}_1,\textbf{v}_2,\ldots,\textbf{v}_r\}$ is called \textbf{\emph{linearly independent}} if
+\[
+	a_1\code{v}_1+a_2\code{v}_2+\cdots+a_r\code{v}_r=0 \implies a_1=a_2=\cdots=a_r=0.
+\]
+If $C$ is a subspace of $V(n,q)$. Then a subset $\{textbf{v}_1,\textbf{v}_2,\ldots,\textbf{v}_r\}$ of $C$ is called \textbf{\emph{generating set}} if every vector of $C$ can be expressed as the linear combination of these vectors.\\
+A \emph{generating set} of $C$ which is also linearly independent is called \textbf{\emph{basis}} of $C$.
+
+\begin{thm}
+	If $C$ is a non-trivial subspace of $V(n,q)$. Then any generating set of $C$ contians a basis of $C$.
+\end{thm}
+\begin{proof}
+	We equate linear combination of generating matrix elements with $\code{0}$, then the vectors with non-zero coefficients are removed from the generating matrix and we get a basis of $C$.
+\end{proof} 
+
+\begin{thm}
+	Suppose $\{\code{v}_1,\code{v}_2,\ldots,\code{v}_k\}$ be the basis of a subspace $C$ of $V(n,q)$. Then\\ 
+	\begin{enumerate*}[label=(\roman*), before=\unskip{}]
+		\item every vector of $C$ can be expressed \emph{uniquely} as a linear combination of the basis vectors.\\
+		\item $C$ contains exactly $q^k$ vectors. 
+	\end{enumerate*}  
+\end{thm}
+The order of basis of $C$ is called the \textbf{\emph{dimension}} of the subspace $C$, denoted by $\dim{C}$. 
+\begin{proof}
+Let the basis of $C$ be the set $\{\textbf{v}_1,\textbf{v}_2,\ldots,\textbf{v}_k\}$.
+\hfill
+	\begin{enumerate}[label=(\roman*)]
+		\item If $\code{x}=a_1\code{v}_1+a_2\code{v}_2+\cdots+a_k\code{v}_k$, and $\code{x}=b_1\code{v}_1+b_2\code{v}_2+\cdots+b_k\code{v}_k$, then
+		\(
+			(a_1-b_1)\code{v}_1+(a_2-b_2)\code{v}_2+\cdots+(a_k-b_k)\code{v}_k=0
+		\),
+		but as basis is linearly independent, $a_i-b_i=0$ for all $0<i\leq k$.
+		\item $q$ choices for coefficient of each the basis element, therefore $q^k$ elements in the subspace. 
+	\end{enumerate}  
+\end{proof}
+\end{document}
