@@ -28,7 +28,7 @@ In order to reach this result, we will need the following lemmas.
 	Let $C$ be a binary linear $[n,k]$-code and \code{y} is a fixed vector in $V(n,2)$ and $\code{y} \notin C^\perp$. Then $\code{x}\cdot \code{y}$ is equal to $0$ and $1$ equally often as $\code{x}$ runs over the codewords of $C$.
 \end{lem}
 \begin{proof}
-	Let $A = \{ \code{x} \in C | \code{x}\code{y} = 0 \}$ and $B = \{ \code{x} \in C | \code{x}\code{y} = 1 \}$.\\
+	Let $A = \{ \code{x} \in C\; |\; \code{x}\code{y} = 0 \}$ and $B = \{ \code{x} \in C\; |\; \code{x}\code{y} = 1 \}$.\\
 	There exists $\code{u} \in C$ such that $\code{u}\cdot \code{y} = 1$ as $\code{y} \notin C^\perp$. Let $\code{u} + A$ denote the set $\{ \code{u} + \code{x} | \code{x}\in A \}$. Then it follows that
 	\[
 		\code{u} + A \subseteq B,
@@ -132,10 +132,10 @@ The idea of finding $W_{C}$ with the help of $W_{C^\perp}$ using Theorem \ref{th
 	\[
 		H = 
 		\begin{bmatrix}
-			\code{h}_1 & \\ 
-			\code{h}_2 &\\ 
-			\vdots &\\ 
-			\code{h}_2 & \\
+			\code{h}_1 \\ 
+			\code{h}_2\\ 
+			\vdots\\ 
+			\code{h}_2 \\
 		\end{bmatrix}
 		= 
 		\begin{bmatrix}
@@ -168,7 +168,7 @@ Also, the probability of undetected errors in a binary $[n,k]$-code $C$ given by
 \[
 	P_{\text{undetec}}(C) = (1-p)^n \left[ W_C\left( \dfrac{p}{1-p} \right) - 1 \right]
 \]
-or by using Theorem \ref{thm_mac_iden}
+or by using Theorem \ref{thm_mac_iden},
 \[
 	P_{\text{undetec}}(C) = \dfrac{1}{2^{n-k}}[ W_{C^\perp}(1-2p) - (1-p)^n].
 \]

@@ -45,7 +45,7 @@ These codes are best defined using their parity-check matrix:
 		 Thus $d$(Ham$(r,2)$) $\geq 3$, and it is easy to see that the equality exists, for example vector $11100\cdots 0$ can exist in Ham$(r,2)$, by a suitable rearrangement of columns in $H$.
 		 \item The left-hand side of shere packing bound is
 		 \[
-		 	2^{n-r}\left(1 + binom{n}{1}\right) = 2^{n-r}(1+n) = 2^n
+		 	2^{n-r}\left(1 + \binom{n}{1}\right) = 2^{n-r}(1+n) = 2^n
 		 \]  
 		 Therefore, the bound is acheived and the code is a perfect code.
 	\end{enumerate}	
@@ -98,7 +98,7 @@ Here also, Ham$(r,q)$ is unique upto equivalence.\\
 \begin{proof}
 	Ham$(r,q)$ was constructed to be an $(n,M,3)$-code with $n=(q^r-1)/(q-1)$ and $M=q^{n-r}$. The left-hand side of the sphere-packing bound becomes 
 	\begin{align}
-		q^{n-r}(1 + n(q-1)) &= q^{n-r}(1 + q^r -1)
+		q^{n-r}(1 + n(q-1)) &= q^{n-r}(1 + q^r -1)\\
 		&= q^n
 	\end{align}
 	which is the right-hand side, so Ham$(r,q)$ is a perfect code.	 
@@ -118,6 +118,6 @@ Since a Hamming code is a perfect single-error correcting code, the codet leader
 	S(\code{x}) = b\code{H}_j^T,
 \]
 where $\code{H}_j$ denotes the $j$th column of $H$.\\
-So the decoding scheme is as follows. If the received vector is \code{y}, then first calculate the syndrome $S(\code{y})$, if $S(\code{y})=\code{0}$, assume no errors, otherwise $S(\code{y} = b\code{H}_j^T$ for some $b$ and $j$ and the assumed single error is corrected by subtracting $b$ from the $j$th entry of $\code{y}$.
+So the decoding scheme is as follows. If the received vector is \code{y}, then first calculate the syndrome $S(\code{y})$, if $S(\code{y})=\code{0}$, assume no errors, otherwise $S(\code{y}) = b\code{H}_j^T$ for some $b$ and $j$ and the assumed single error is corrected by subtracting $b$ from the $j$th entry of $\code{y}$.
 
 \end{document}
