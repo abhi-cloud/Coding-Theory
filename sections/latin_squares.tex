@@ -1,0 +1,227 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+
+The main aim of this section is to construct codes using some mathematical constructs called \textbf{Latin Squares}, and vice-versa. Further, we will solve the \textit{main coding theory problem} for single-error-correcting codes of length $4$ i.e. find the values of $A_q(4,3)$ for all values of $q$.
+
+\begin{defn}
+	A \textbf{Latin square of order $q$} is a $q\times q$ array whose entries are from a set $F_q$ of $q$ distinct symbols suzh that each row and each column of the array contains each symbol exactly once.
+\end{defn}
+
+\textbf{Example}: Let $F_3 = \{1,2,3\}$. Then an example of a Latin square of order $3$ is
+\[
+	\begin{array}{ccc}
+		1 & 2 & 3\\
+		2 & 3 & 1\\
+		3 & 1 & 2\\
+	\end{array}
+\]
+
+\begin{thm}
+	There exists a Latin square of order $q$ for any positive integer $q$.
+\end{thm}
+
+\begin{proof}
+	We can take $1\;2\;\cdots\; q$ as the first row and cycle this round once for each subsequent row to get 
+	\[
+		\begin{array}{ccccccc}
+			1 & 2 & 3 & \cdots & & & q\\
+			2 & 3 & 4 & \cdots & & q & 1\\
+			3 & 4 & 5 & \cdots & q & 1 & 2\\
+			\vdots & \vdots & \vdots & & & & \vdots \\
+			q & 1 & 2 & \cdots & & & q-1\\ 
+		\end{array}
+	\]
+	Alternatively, the addition table of $Z_q$ is a Latin square of order $q$.
+\end{proof}
+
+\begin{defn}
+	Let $A$ and $B$ be two Latin squares of order $q$. Let $a_{ij}$ and $b_{ij}$ denote the $i,j$th entries of $A$ and $B$ respectively. Then $A$ and $B$ are said to be \textbf{\emph{mutually orthogonal}} Latin squares (abbreviated as MOLS) if the $q^2$ ordered pairs $(a_{ij}, b_{ij}),\;i,j=1,2,\ldots,q$ are all distinct.
+\end{defn}
+
+\textbf{Example}: The Latin squares 
+\[	A=
+	\begin{array}{ccc}
+		1 & 2 & 3\\
+		2 & 3 & 1\\
+		3 & 1 & 2
+	\end{array}
+	\hspace{2mm}
+	\text{and}
+	\hspace{2mm}
+	B=
+	\begin{array}{ccc}
+		1 & 2 & 3\\
+		3 & 1 & 2\\
+		2 & 3 & 1
+	\end{array}
+\]
+
+\begin{center}
+\line(1,0){250}
+\end{center}
+   
+\subsection{Optimal single-error-correcting code of length $4$}
+
+\begin{thm}\label{thm_singleton_3}
+	$A_q(4,3)\leq q^2$, for all $q$.
+\end{thm}
+
+\begin{proof}
+	Suppose $C$ is a $q$-ary $(4,M,3)$-code and let $\code{x}=x_1x_2x_3x_4$ and $\code{y}=y_1y_2y_3y_4$ be distinct codewords of $C$. Then $(x_1,x_2)\neq (y_1y_2)$, for otherwise $\code{x}$ and $\code{y}$ could differ only in the last two places, contradicting $d(C)=3$. Therefore, $M\leq q^2$.
+\end{proof}
+
+\begin{thm}\label{thm_equiv}
+	There exists a $q$-ary $(4,q^2,3)$-code if and only if there exists a pair of MOLS of the order $q$.
+\end{thm}
+
+\begin{proof}
+	Let 
+	\[
+		C = \{(i,j,a_{ij},b_{ij})| (i,j)\in (F_q)^2 \}
+	\]
+	As in the proof of Theorem \ref{thm_singleton_3}, the minimum distance of $C$ is $3$ if and only if, for each pair of coordinate positions, the ordered pairs appearing in those positions are distinct. Now the $q^2$ pairs of $(i,a_{ij})$ and $q^2$ pairs of $(j,a_{ij})$ are distinct if and only if $A$ is a Latin square. Similarly, the $q^2$ pairs of $(i,b_{ij})$ and $q^2$ pairs of $(j,b_{ij})$ are distinct if and only if $B$ is a Latin square. Lastly, the $q^2$ pairs $(a_{ij},b_{ij})$ are distinct if and only if there exists a MOLS of order $q$.
+\end{proof}
+
+\begin{thm}\label{thm_prm.pwr_ls}
+	If $q$ is a prime-power and $q\neq 2$, then there exists a pair of MOLS of order $q$.
+\end{thm}
+
+\begin{proof}
+	Let $F_q$ be the field $GF(q) = \{ \lambda_0 , \lambda_1 , \ldots , \lambda_{q-1} \}$ where $\lambda_0 = 0$. Let $\mu$ and $\nu$ be two distinct non-zero elements of $GF(q)$. Let $A=[a_{ij}]$ and $B=[b_{ij}]$ be $q\times q$ arrays defined by 
+	\[
+		a_{ij} = \lambda_i + \mu \lambda_j
+		\hspace{2mm}
+		and
+		\hspace{2mm}
+		b_{ij} = \lambda_i + \nu \lambda_j
+	\]
+	We now see that $A$ id Latin square and similarly so is $B$. As if two elements in the same of $A$ are identical, then we have
+	\[
+		\lambda_i + \mu \lambda_j = \lambda_i + \mu \lambda_j^{'}
+	\]
+	 implying $j = j^{'}$ as $\mu$ is non-zero. Now for columns, 
+	 \[
+	 	\lambda_i + \mu \lambda_j = \lambda_i^{'} + \mu \lambda_j
+	 \]
+	 implying that $i = i^{'}$.
+	 Now, we prove that $A$ and $B$ are orthogonal, suppose on contrary that $(a_{ij},b_{ij})=(a_{i^{'}j^{'}},b_{i^{'}j^{'}})$, then
+	 \begin{align*}
+		 \lambda_i + \mu \lambda_j &= \lambda_i^{'} + \mu \lambda_j^{'}\\
+		 \text{and} \hspace{5mm} \lambda_i + \nu \lambda_j &= \lambda_i^{'} + \nu \lambda_j^{'}\\	 	
+	\end{align*}
+	which on subtraction gives
+	\[
+		(\mu - \nu)\lambda_j = (\mu - \nu)\lambda_j^{'}
+	\]	  
+	Since $\mu \neq \nu$, we have $j = j^{'}$, and consequently, $i=i^{'}$. 
+\end{proof}
+
+\begin{thm}\label{thm_mn_ls}
+	If there exists a pair of MOLS of order $n$ as well as order $m$, then there exists a pair of MOLS of order $mn$. 
+\end{thm}
+
+\begin{proof}
+	Suppose $A_1,A_2$ is a pair of MOLS of order $m$ and $B_1,B_2$ is a pair of MOLS of order $n$.
+	Let $C_1$ and $C_2$ be the $mn\times mn$ squares defined by
+	\[
+		C_k = 
+		\begin{array}{cccc}
+			(a_{11}^{(k)},B_k) & (a_{12}^{(k)},B_k) & \cdots & (a_{1m}^{(k)},B_k)\\
+			(a_{12}^{(k)},B_k) & (a_{22}^{(k)},B_k) & \cdots & (a_{2m}^{(k)},B_k)\\
+			\vdots & & & \vdots \\
+			(a_{m1}^{(k)},B_k) & (a_{m2}^{(k)},B_k) & \cdots & (a_{mm}^{(k)},B_k)\\
+		\end{array}
+	\]
+	where $k\in \{1,2\}$, $A_k = [a_{ij}^{(k)}]$ and $(a_{ij}^{(k)},B_k)$ denotes an $n\times n$ array (referred as block in this proof) whose $r,s$th entry is $(a_{ij}^{(k)},b_{rs}^{(k)})$ for $r,s \in \{1,2,\cdots,n\}$. \\
+	From this construction it is trivial to see that $C_k$ are Latin squares. Further assuming them to be not a pair of MOLS implies that in both $C_1,C_2$ either two entries in a block are same or, two entries are same in blocks having different row and column. The first possibility contradicts $B_k$ being a pair of MOLS, and the latter contradicts $A_k$ being a pair of MOLS.
+\end{proof}
+
+\begin{thm}\label{thm_q_modnot2}
+	If $q\equiv 0, 1$ or $3\Mod{4}$. Then there exists a pair of MOLS of order $q$.
+\end{thm}
+
+\begin{proof}
+	One can break down each of $q$ satisfying $q\equiv 0, 1$ or $3\Mod{4}$ into their prime factorisation, then each of the prime-power in it will be $\geq 3$. Thus, repeated application of Theorem \ref{thm_prm.pwr_ls} and Theorem \ref{thm_mn_ls} will give us the required pair of MOLS for each of these $q$.  
+\end{proof}
+
+\textbf{Note}: Theorem \ref{thm_q_modnot2} leaves cases when $q\equiv 2\Mod{4}$. It has been proved pair of MOLS also exist for these cases except for $q=2$ and $q=6$. The proof will not be covered in this report. 
+
+\begin{cor}
+	$A_q(4,3)=q^2$ for all $q\neq 2,6$.
+\end{cor}
+\begin{proof}
+	This is immediate from Theorems \ref{thm_singleton_3}, \ref{thm_equiv} and \ref{thm_q_modnot2}.
+\end{proof}
+
+\begin{remark}
+	For $q=2$, it is trivial to see that $A_2(4,3)=2$, while for $q=6$, a construction similar to pair of orthogonal Latin squares gives $A_6(4,3)=34$. 
+\end{remark}
+
+\begin{center}
+\line(1,0){250}
+\end{center}
+
+Some generalization of the above results.
+
+\begin{thm}[\textbf{Singleton bound}]\label{singleton_bound}
+	\[
+		A_q(n,d) \leq q^{n-d+1}.
+	\]	
+\end{thm}
+\begin{proof}
+	Suppose $C$ is a $q$-ary $(n,M,d)$-code.Same as in proof of Theorem \ref{thm_singleton_3}, if now we delete the last $d-1$ coordinates from each codeword, then the $M$ vectors of length $n-d+1$ so obtained must be distinct and so $M \leq q^{n-d+1}$.
+\end{proof}
+
+\begin{defn}
+	A set $\{A_1,A_2,\ldots,A_t\}$ of Latin squares of order $q$ is called a set of mutually orthogonal Latin squares (MOLS) if each pair $\{A_i,A_j\}$ is a pair of MOLS, for $1\leq i < j\leq t$.	
+\end{defn}
+
+\begin{thm}
+	There are at most $q-1$ Latin squares in any set of MOLS of order $q$.
+\end{thm}
+
+\begin{proof}
+	Let $A_1,A_2,\ldots, A_t$ be the set of MOLS of order $q$. If we relabel elements of each Latin square such that the first row of $A_i$ is $1\;2\;\cdots q$ (as relabelling conserves orthogonality). Now considering $t$ entries appearing in the $(2,1)$th positions cannot be $1$ as well as no two of them can be same, as for all $i$, the  pair $(i,i)$ has already occured in the first row.\\
+	Therefore, we must have $t\leq q-1$.  
+\end{proof}
+
+\begin{defn}
+	If a set of $q-1$ MOLS of order $q$ exists, it is called a \emph{complete} set of MOLS of order $q$.
+\end{defn}
+
+\begin{thm}
+	If $q$ is prime-power, then there exists a complete set of $q-1$ MOLS of order $q$.
+\end{thm}
+\begin{proof}
+	Similar to what we in Theorem \ref{thm_prm.pwr_ls}, if we define $A_k=[a_{ij}^(k)], k\in \{1,2,\ldots,q-1\}$, with 
+	\[
+		a_{ij}^{(k)} = \lambda_i + \lambda_k \lambda_j.
+	\]
+	It follows exactly as in the proof of Theorem \ref{thm_prm.pwr_ls}, that the set formed by the Latin squares $A_k$ is a set of MOLS of order $q$.
+\end{proof}
+
+\begin{thm}
+	A $q$-ary $(n,q^2,n-1)$-code is equivalent to a set of $n-2$ MOLS of order $q$.
+\end{thm}
+
+\begin{proof}
+	As in Theorem \ref{thm_equiv}, code $C$ of the form 
+	\[
+		\{ (i, j, a_{ij}^{(1)}, a_{ij}^{(2)}, \ldots, a_{ij}^{(n-2)}) | (i,j)\in (F_q)^2 \}	
+	\]
+	has $d(C)=n-1$ if and only if $A_k = [a_{ij}^{(k)}]$, form a set of MOLS of order $q$, same outline as in proof of Theorem \ref{thm_equiv}.
+\end{proof}
+
+\begin{cor}
+	If $q$ is a prime power and $n\leq q+1$, then 
+	\[
+		A_q(n,n-1) = q^2
+	\]
+\end{cor}
+
+\begin{proof}
+	This is immediate from above theorems.
+\end{proof}
+
+\end{document}

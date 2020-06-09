@@ -51,13 +51,15 @@
 \fancyfoot[R]{\thepage}
 \renewcommand{\footrulewidth}{0pt}
 
-
 \usepackage{subfiles}
 
 \begin{document}
 
 \subfile{sections/titlepage}
 
+\section*{Preface}
+In this report, we will try to understand how a message/data is sent across noisy channels. Messages sent through such channels undergo some aberration due to various kinds of noises. Our motto is to have a high probability of decoding a recieved message to its original meaning. This report goes through such encoding and decoding procedures, from fairly trivial to some advanced methods that enable us with fast and accurate decoding schemes. We will be following the text \emph{A first Course in Coding Theory}\cite{mostly} throughout this report, with some help from \emph{Introoduction to Coding Theory	}\cite{rarely}.
+  
 \tableofcontents
 \thispagestyle{empty}
 \newpage
@@ -83,7 +85,23 @@
 \section{Dual Code, parity-check matrix and syndrome decoding}
 \subfile{sections/dualcodesNpcms}
 \newpage
+\section{The Hamming Codes}
+\subfile{sections/hammingCodes}
+\newpage
+\section{Codes and Latin Squares}
+\subfile{sections/latin_squares}
+\newpage
+\section{Basic BCH codes}
+\subfile{sections/bch_codes}
+\newpage
+\section{Cyclic codes}
+\subfile{sections/cyclic_codes}
+\newpage
+\section{Weight enumerators}
+\subfile{sections/weight_enum}
+\newpage
 
+\iffalse
 \addcontentsline{toc}{section}{\numberline{}Updated PoA}
 \section*{Updated PoA}
 I have mostly covered what I had planned till midterm (adding worked out problems is left), so I'll continue with the original plan i.e. trying to complete the text, \emph{A first Course in Coding Theory}\cite{mostly}, with some help from \emph{Introoduction to Coding Theory	}\cite{rarely}.
@@ -123,6 +141,7 @@ I have mostly covered what I had planned till midterm (adding worked out problem
 		\item Chapter 14
 	\end{itemize}
 \end{itemize}
+\fi
 
 \medskip
 \addcontentsline{toc}{section}{\numberline{}References}

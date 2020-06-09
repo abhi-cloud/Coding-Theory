@@ -1,0 +1,145 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+	
+Before we get into BCH codes, we will need some basic results from Linear Algebra. Therefore, we will first get introduced with some Linear Algebra results (proofs will be omitted), and then define generalised version of a particular class of BCH codes, along with their decoding procedure.\\
+
+\subsection{Preliminary results from linear algebra}	
+
+\begin{thm}\label{thm_vander}
+	Suppose $a_1, a_2, \ldots, a_r$ are distinct non-zero elements of a field. Then the determinant of the following matrix $A$ (called \emph{Vandermonde matrix}) is non-zero and is given by $\displaystyle \prod_{i>j}(a_i - a_j)$.
+	\[
+		A = 
+		\begin{bmatrix}
+			1 & 1 & \cdots & 1 \\
+			a_1 & a_2 & \cdots & a_r \\
+			a_1^2 & a_2^2 & \cdots & a_r^2 \\
+			\vdots & \vdots &  & \vdots \\
+			a_1^{r-1} & a_2^{r-1} & \cdots & a_r^{r-1} \\
+		\end{bmatrix}
+		\hspace{2mm}
+		\text{and}
+		\hspace{2mm}	
+		det(A) = \prod_{i>j}(a_i - a_j)
+	\]
+	
+\end{thm}
+	
+\begin{thm}\label{thm_nonzero_li}
+	If $A$ is an $r\times r$ matrix having a non-zero determinant, then the $r$ columns of $A$ are linearly independent (converse is also true).
+\end{thm}	
+
+\begin{center}
+\line(1,0){250}
+\end{center}
+
+\subsection{A class of BCH codes}
+
+Now we will give construction for $t$-error-correcting code of length $n$ over $GF(q)$, provided 
+\[
+	2t+1\leq n \leq q-1.
+\]
+We will assume for simplicity that $q$ is a prime, so that $GF(q)=\{0,1,\ldots,q-1\}$, but this construction can be generalized for any prime-power by relabelling accordingly.\\
+Let $C$ be the code over $GF(q)$ defined to have the parity-check matrix
+\[
+	H=
+	\begin{bmatrix}
+		1 & 1 & 1 & \cdots & 1 \\
+		1 & 2 & 3 & \cdots & n \\
+		1 & 2^2 & 3^2 & \cdots & n^2 \\
+		\vdots \\
+		1 & 2^{d-2} & 3^{d-2} & \cdots & n^{d-2} \\
+	\end{bmatrix}
+\]
+where $d\leq n\leq q-1$, i.e.
+\[
+	C = \left\{
+		x_1x_2\cdots x_n \in V(n,q)\; |\; \sum_{i=1}^n i^ix_i = 0\;\text{for}\;j=0,1,\ldots,d-2
+		\right\}.
+\]
+
+\begin{thm}
+	If $q$ is a prime-power and if $d\leq n\leq q-1$, then 
+	\[
+		A_q(n,d) = q^{n-d+1}.
+	\]
+\end{thm}
+\begin{proof}
+	Any $d-1$ columns of $H$ (defined above) form a Vandermonde matrix and so are linearly independent, by Theorems \ref{thm_vander} and \ref{thm_nonzero_li}. Also, any $d$ columns of $H$ corresponds to solving $d-1$ linear equations in $d$ variables, which implies the linear dependence of those $d$ columns. Hence, by Theorem \ref{thm_parity_n_mindiff}, $C$ has a minimum distance of $d$ and so is a $q$-ary $(n,q^{n-d+1},d)$-code and it meets the Singleton bound (Theorem \ref{singleton_bound}). 
+\end{proof}
+
+\textbf{Decoding algorithm}:\\
+Suppose the codeword $\code{x}=x_1x_2\cdots x_n$ is transmitted and that the vector $\code{y}=y_1y_2\cdots y_n$ is received in which we assume atmost $t$ errors have occurred, at positions $X_1,X_2,\ldots,X_t$ with respective magnitudes $m_1,m_2,\ldots,m_t$ (if $e<t$ errors have occurred then we assume other magnitudes to be zero). From $\code{y}$ we calculate the syndrome
+\[
+	(S_1,S_2,\ldots,S_{2t}) = \code{y}H^T,
+\]
+Thus, we must solve for $X_i$ and $m_i$ the following equations
+
+\begin{equation}\label{oc_eqs}
+	\left.
+	\begin{split}
+		m_1 & + m_2 & + \cdots & + m_t & = S_1 \\
+ 		m_1X_1 & + m_2X_2 & + \cdots & + m_tX_t & = S_2 \\
+ 		m_1X_1^{2} & + m_2X_2^{2} & + \cdots & + m_tX_t^{2} & = S_3\\
+ 		    & \vdots & \\
+ 		m_1X_1^{2t-1} & + m_2X_2^{2t-1} & + \cdots & + m_tX_t^{2t-1} & = S_2t. \\
+	\end{split}
+	\hspace{5mm}
+	\right\}
+\end{equation}
+
+Now consider the expression
+\begin{equation}\label{diff_form}
+	\phi(\theta) = \dfrac{m_1}{1-X_1\theta} + \dfrac{m_2}{1-X_2\theta} + \cdots + \dfrac{m_t}{1-X_t\theta} 
+\end{equation}
+
+Now as $\dfrac{m_j}{1-X_j\theta} = m_j(1 + X_j\theta + X_j^2 \theta^2 + \cdots)$,\\
+and therefore by combination of set of eqautions (\ref{oc_eqs}) and equation \ref{diff_form}, we get
+\begin{equation}\label{synd_form}
+	\phi(\theta) = S_1 + S_2\theta + S_3\theta^2 + \cdots + S_{2t}\theta^{2t-1} + \cdots
+\end{equation}
+
+Reducing the fractions in (\ref{diff_form}), we have
+\begin{equation}\label{mixed_form}
+	\phi(\theta) = \dfrac{A_1 + A_2\theta + A_3\theta^2 + \cdots + A_t\theta^{t-1}} {1 + B_1\theta + B_2\theta^2 + \cdots + B_t\theta^t}.
+\end{equation}
+
+Hence,
+\begin{multline*}
+	(S_1 + S_2\theta + S_3\theta^2 + \cdots)(1 + B_1\theta + B_2\theta^2 + \cdots + B_t\theta^t) = A_1 + A_2\theta + A_3\theta^2 + \cdots + A_t\theta^{t-1}.
+\end{multline*}
+
+Equationg coefficients of like powers of $\theta$, we have
+\begin{equation}\label{both_AnB}
+	\left.	
+	\begin{split}		
+		A_1 &= S_1 \\		
+		A_2 &= S_2 + S_1B_1 \\
+		& \vdots \\
+		A_t &= S_t + S_{t-1}B_1 + S_{t-2}B_2 + \cdots + S_tB_{t-1}			
+	\end{split}
+	\hspace{5mm}
+	\right\}
+\end{equation}
+
+\begin{equation}\label{only_B}
+	\left.	
+	\begin{split}		
+		0 &= S_{t+1} + S_{t}B_1 + S_{t-1}B_2 + \cdots + S_1B_{t} \\		
+		0 &= S_{t+2} + S_{t+1}B_1 + S_{t}B_2 + \cdots + S_2B_{t} \\
+		& \vdots \\
+		0 &= S_{2t} + S_{2t-1}B_1 + S_{2t-2}B_2 + \cdots + S_tB_{t}			
+	\end{split}
+	\hspace{5mm}
+	\right\}
+\end{equation} 
+
+Since $S_i$s are known, the $t$ equations (\ref{only_B}) gives us $B_{i}$s, and then $A_i$s can be found from equations in (\ref{both_AnB}).\\
+After this, we can split equation (\ref{mixed_form}) into partial fractions and compare with equation (\ref{diff_form}) to get corresponding $m_i$ and $X_i$.\\
+
+\textbf{Note:} By directly looking at the syndrome vector, we cannot predict the number errors which have actually occured, but the number of actual errors $e$ will be same as the maximum number of linearly independent equations in system (\ref{only_B}). After finding $e$, we can substitute $B_{e+1},B_{e+2},\ldots,B_t$ all equal to zero, and the denominator in equation (\ref{mixed_form}), becomes
+\[
+	1 + B_1\theta + B_2\theta^2 + \cdots + B_e\theta^e
+\]
+which can be factorised to give the $e$ errors and their location.
+\end{document}

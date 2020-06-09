@@ -11,7 +11,7 @@
 If $\code{u}\cdot \code{v}=0$, then \code{u} and \code{v} are called \textbf{\emph{orthogonal}}.\\
 
 \begin{lem}\label{lem_innerproduct}
-	For any \code{u}, \code{v} and \code{w} in $V{n,q}$ and $\lambda,\; \mu \in GF(q)$, 
+	For any \code{u}, \code{v} and \code{w} in $V(n,q)$ and $\lambda,\; \mu \in GF(q)$, 
 	\begin{enumerate}
 	\itemsep-1mm
 		\item $\code{u}\cdot \code{v} = \code{v} \cdot \code{u}$
@@ -64,7 +64,7 @@ If $\code{u}\cdot \code{v}=0$, then \code{u} and \code{v} are called \textbf{\em
 	\[
 		C^\perp = \left\{(v_1,v_2,\ldots,v_n)\in V(n,q) \;|\; v_i + \displaystyle\sum_{j=1}^{n-k}v_{j+k}a_{ij} = 0, \;\forall\; i \in \{1,2,\ldots,n-k\}\right\} 
 	\]
-	We have $q^{n-k}$ choices for $(v_{k+1},\ldots,v_n)$, and for each combination be have unique vector $v_1v_2\cdots v_n$ in $C^\perp$. Hence, $|C^{\perp}|=q^{n-k}$, and $\dim{C^\perp}=n-k$. 
+	We have $q^{n-k}$ choices for $(v_{k+1},\ldots,v_n)$, and for each combination we have a unique vector $v_1v_2\cdots v_n$ in $C^\perp$. Hence, $|C^{\perp}|=q^{n-k}$, and $\dim{C^\perp}=n-k$. 
 \end{proof}
 
 \begin{thm}\label{thm_doubledual}
@@ -101,7 +101,7 @@ Thus, $H$ is $(n-k)\times n$ matrix satisfying $GH^T=\code{0}$, where \code{0} i
 		H = \left[
 			\begin{array}{ccc|ccc}
 			-a_{11} & \cdots  & -a_{k1} & 1 & \cdots & 0\\
-			\vdots & \ddots & \vdots & \vdots & & \vdots\\
+			\vdots &  & \vdots & \vdots & \ddots & \vdots\\
 			-a_{1,n-k} & \cdots & -a_{k,n-k} & 0 & \cdots & 1
 			\end{array}
 			\right]
@@ -129,7 +129,7 @@ Now we will see some more efficient decoding schemes using \emph{parity-check ma
 	\]
 	is called the \textbf{\emph{syndrome}} of \code{y}.
 \end{defn}
-It is quite that $S(\code{y})=0$ if and only if $\code{y}\in C$.
+It is clear that $S(\code{y})=0$ if and only if $\code{y}\in C$.
 
 \begin{lem}
 	Two vectors \code{u} and \code{v} are in the same coset of $C$ if and only if they have the same syndrome.

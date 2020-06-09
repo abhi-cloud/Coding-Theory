@@ -1,0 +1,175 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+
+\begin{defn}
+	If $C$ is a linear $[n,k]$-code, its \textbf{\emph{weight enumerator}} is defined to be the polynomial
+	\begin{align*}
+		W_C(z) &= \sum_{i=0}^n A_iz^i \\
+		&= A_0 + A_1z + \cdots + A_nz^n, \\
+	\end{align*}
+	or simply,
+	\[
+		W_C(z) = \sum_{\code{x} \in C} z^{w(\code{x})}.
+	\]
+\end{defn}
+
+\textbf{Example:} Let $C = \{ 000,011,101,110 \}$. Its dual code $C^\perp$ is $\{ 000,111 \}$. The weight enumerators of $C$ and $C_\perp$ are
+\[
+	W_C(z) = 1 + 3z^2, 
+	\hspace{6mm}
+	W_{C^\perp}(z) = 1 + z^3 \\
+\]\\
+The motto behind finding weight enumerator of a code is that it enables us find the probabilty of undetected errors when the code is purely used for error-detection.\\
+Also, the objective of this section will be to find weight enumerator of any binary linear code $C$ to be obtained from the weight enumerator of its dual code $C^\perp$, as the enumerator of the latter is much easier to find in cases when $n, k$ are both large, while $n-k$ is relatively small.\\
+In order to reach this result, we will need the following lemmas.
+
+\begin{lem}\label{lem_eqof_01}
+	Let $C$ be a binary linear $[n,k]$-code and \code{y} is a fixed vector in $V(n,2)$ and $\code{y} \notin C^\perp$. Then $\code{x}\cdot \code{y}$ is equal to $0$ and $1$ equally often as $\code{x}$ runs over the codewords of $C$.
+\end{lem}
+\begin{proof}
+	Let $A = \{ \code{x} \in C | \code{x}\code{y} = 0 \}$ and $B = \{ \code{x} \in C | \code{x}\code{y} = 1 \}$.\\
+	There exists $\code{u} \in C$ such that $\code{u}\cdot \code{y} = 1$ as $\code{y} \notin C^\perp$. Let $\code{u} + A$ denote the set $\{ \code{u} + \code{x} | \code{x}\in A \}$. Then it follows that
+	\[
+		\code{u} + A \subseteq B,
+	\]
+	Similarly, 
+	\[
+		\code{u} + B \subseteq A.
+	\]
+	Hence,
+	\[
+		|A| = |\code{u} + A| \leq |B| = |\code{u} + B| \leq |A|. 
+	\]
+\end{proof}
+
+\begin{lem}\label{lem_2k0}
+	Let $C$ be a binary $[n,k]$-code and let $\code{y}$ be any element of $V(n,2)$. Then
+	\[
+		\sum_{\code{x} \in C} (-1)^{\code{x}\cdot \code{y}} = 
+		\begin{cases}
+			2^k & \text{if}\; \code{y} \in C^{\perp} \\
+			0 & \text{if}\; \code{y} \notin C^{\perp} \\
+		\end{cases}.
+	\]
+\end{lem}
+\begin{proof}
+	If $\code{y} \in C^{\perp}$, then $\code{x}\cdot \code{y} = 0$ for all $\code{x} \in C$, so the result follows.\\
+	On the other hand, if $\code{y} \notin C^\perp$, then by Lemma \ref{lem_eqof_01}, $(-1)^{\code{x}\cdot \code{y}}$ is equal to $1$ and $-1$ equally often.
+\end{proof}
+
+\begin{lem}\label{lem_poly?}
+	Let \code{x} be a fixed vector in $V(n,2)$ and $z$ be an indeterminate. Then the following polynomial identity holds:
+	\[
+		\sum_{\code{y} \in V(n,2)} z^{w(\code{y})}(-1)^{\code{x}\cdot \code{y}} = 
+		(1-z)^{w(\code{x})}(1+z)^{n-w(\code{x})}.
+	\]
+\end{lem}
+
+\begin{proof}
+	\begin{align*}
+		\sum_{\code{y} \in V(n,2)} z^{w(\code{y})}(-1)^{\code{x}\cdot \code{y}} &= 
+		\sum_{y_1=0}^1 \cdots \sum_{y_n=0}^{1} \left( \prod_{i=1}^{n} z^{y_i}(-1)^{x_iy_i} \right) \\
+		&= \prod_{i=1}^{n} \left( \sum_{j=0}^{1} z^j(-1)^{jx_i} \right)\\
+		&= (1-z)^{w(\code{x})}(1+z)^{n-w(\code{x})}, \\  
+	\end{align*}
+	
+	since,\hspace{10mm}$
+		\displaystyle\sum_{j=0}^1 z^{j}(-1)^{jx_i} = 
+		\begin{cases}
+			1+z & \text{if}\; x_i = 0 \\
+			1-z & \text{if}\; x_i = 1 \\
+		\end{cases}.
+	$ 	
+\end{proof}
+
+\begin{thm}[\textbf{MacWilliams identity}]\label{thm_mac_iden}
+	If $C$ is a binary $[n,k]$-code with dual code $C^\perp$, then
+	\[
+		W_{C^\perp}(z) = \dfrac{1}{2^k}(1+z)^n W_C \left( \dfrac{1-z}{1+z} \right).
+	\]	
+	
+\end{thm}
+\begin{proof}
+	We will express 
+	\[
+		f(z) = \sum_{\code{x} \in C} \left( \sum_{\code{y} \in V(n,2)} z^{w(\code{y})}(-1)^{\code{x}\cdot \code{y}} \right)
+	\]
+	in two ways.\\
+	Firstly, by Lemma \ref{lem_poly?},
+	\begin{align*}
+		f(z) &= \sum_{\code{x} \in C} (1-z)^{w(\code{x})}(1+z)^{(n-w(\code{x}))} \\
+		&= (1+z)^n \sum_{\code{x} \in C} \left( \dfrac{1-z}{1+z} \right)^{w(\code{x})} \\
+		&= (1+z)^n W_C \left( \dfrac{1-z}{1+z} \right)	
+	\end{align*}	
+	
+	Secondly, reversing the order of summation gives
+	\begin{align*}
+		f(z) &= \sum_{\code{y} \in V(n,2)} z^{w(\code{y})} \left( \sum_{\code{x} \in C} (-1)^{\code{x}\cdot \code{y}} \right) \\
+		&= \sum_{\code{y} \in C^\perp} z^{w(\code{y})}2^k & \text{(by Lemma \ref{lem_2k0})} \\
+		&= 2^k W_{C^\perp}(z) \\
+	\end{align*}
+	Equating these two results gives the expression in theorem.	 
+\end{proof}
+
+More useful form of Theorem \ref{thm_mac_iden} is when the $C$ and the $C^\perp$ are interchanged, (corresponding change in $k$ also).\\
+
+\textbf{Example:} If we have $C = \{ 000,011,101,110 \}$ and $C^{\perp} =\{ 000,111 \}$ as in earlier example, we have $W_{C^\perp}(z) = 1 + z^3$.\\
+By theorem \ref{thm_mac_iden}, we get
+\begin{align*}
+	W_{C} = \frac{1}{2}(1+z)^3 W_{C^\perp} \left( \dfrac{1-z}{1+z} \right) &= \frac{1}{2} [ (1+z)^3 + (1-z)^3]\\
+	& = 1 + 3z^2,
+\end{align*}
+
+The idea of finding $W_{C}$ with the help of $W_{C^\perp}$ using Theorem \ref{thm_mac_iden} works really well in the case of binary Hamming code Ham$(r,2)$ because hamming codes have large number of codewords even for small values of $r$, so directly calculating $W_{C}$ is not feasible. Now, we will see why finding $W_{C^\perp}$ first is much more easier in this case.
+
+\begin{thm}\label{thm_ham_dual_weight}
+	Let $C$ be the binary Hamming code Ham$(r,2)$. Then every non-zero codeword of $C^\perp$ has weight $2^{r-1}$.
+\end{thm}
+
+\begin{proof}
+	Let
+	\[
+		H = 
+		\begin{bmatrix}
+			\code{h}_1 & \\ 
+			\code{h}_2 &\\ 
+			\vdots &\\ 
+			\code{h}_2 & \\
+		\end{bmatrix}
+		= 
+		\begin{bmatrix}
+			h_{11} & h_{12} & \cdots & h_{1n} \\
+			h_{21} & h_{22} & \cdots & h_{2n} \\
+			\vdots & \vdots & & \vdots \\
+			h_{r1} & h_{r2} & \cdots & h_{rn} \\			
+		\end{bmatrix}
+	\]
+	be the parity-check matrix of $C$ where $\code{h}_i$ are the rows. Let a non-zero codeword $\code{c} = \sum_{i=1}^{r} \lambda_i \code{h}_i$ of $C^\perp$. Since $C$ is a Hamming code, columns of $H$ are precisely the non-zero vectors of $V(r,2)$, so number of zero coordinates ($n_0(\code{c})$) are equal to non-zero elements of the set
+	\[
+		X = \left\{ x_1x_2\cdots x_r \in V(r,2)\; \Big | \;\sum_{i=1}{r} \lambda_i x_i = 0 \right \}
+	\]
+	i.e. $n_0(\code{c}) = |X| - 1$.
+	Now $X$ is a $r-1$-dimensional subspace of $V(r,2)$ (we can view it as a dual code of a code of 1-dimension).\\
+	So, $n_0(\code{c}) = 2^{r-1} - 1$, which is independent of $\code{c}$.
+	Therfore, 
+	\begin{align*} 
+		w(\code{c}) = n - n_0(\code{c}) &= 2^r - 1 - (2^{r-1} - 1)\\
+		&= 2^{r-1}
+	\end{align*}
+\end{proof}
+
+The combined result of theorems \ref{thm_mac_iden} and \ref{thm_ham_dual_weight} gives the weight enumerator of binary Ham$(r,2)$, of length $n = 2^r - 1$, as
+\[
+	\dfrac{1}{2^r}[ (1+z)^n + n(1-z^2)^{(n-1)/2}(1-z)].
+\]\\
+
+Also, the probability of undetected errors in a binary $[n,k]$-code $C$ given by Theorem \ref{thm_undetec_prob}, becomes
+\[
+	P_{\text{undetec}}(C) = (1-p)^n \left[ W_C\left( \dfrac{p}{1-p} \right) - 1 \right]
+\]
+or by using Theorem \ref{thm_mac_iden}
+\[
+	P_{\text{undetec}}(C) = \dfrac{1}{2^{n-k}}[ W_{C^\perp}(1-2p) - (1-p)^n].
+\]
+\end{document}

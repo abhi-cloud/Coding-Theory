@@ -19,7 +19,7 @@ The \textbf{\emph{weight}} w($\code{x}$) of a vector $\code{x}$ in $V(n,q)$ is t
 \begin{proof}
 	$\code{x}-\code{y}$ will be non-zero exactly at those places where \code{x} and  \code{y} differ.
 \end{proof}
-\begin{thm}
+\begin{thm}\label{thm_minwt_is_mindist}
 	Let $C$ be a linear code and let $w(C)$ be the smallest of the non-zero weights. Then $d(C)=w(C).$ 
 \end{thm} 
 \begin{proof}
@@ -216,8 +216,8 @@ The standard array of $C$ will be
 \end{proof}
 \textbf{Note:} If $d(C)=2t+1$ or $2t+2$, then $\alpha_i=\binom{n}{i}$ for $0\geq i\geq t$. In particular, if $C$ is a perfect code, in addition to the general result, $\alpha_i=0$ for $i>t$ also holds.
 
-\begin{thm}
-	Let $C$ be a binary $[n,k]$-code, and let $A_i$ denote the number of codewords of weight $i$. Then \emph{probability} $P_{\text{corr}}(C)$ of an error going undetected is given by
+\begin{thm}\label{thm_undetec_prob}
+	Let $C$ be a binary $[n,k]$-code, and let $A_i$ denote the number of codewords of weight $i$. Then \emph{probability} $P_{\text{undetec}}(C)$ of an error going undetected is given by
 	\[
 		P_{\text{undetec}}(C) = \displaystyle\sum_{i=1}^{n}A_ip^i(1-p)^{n-i}.
 	\]
